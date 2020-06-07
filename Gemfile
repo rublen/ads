@@ -11,6 +11,9 @@ gem 'sinatra-activerecord'
 gem 'rake'
 gem 'require_all'
 
+gem 'dry-initializer', '~> 3.0.3'
+gem 'fast_jsonapi', '~> 1.5'
+
 group :development, :test do
   gem 'pry'
   gem 'tux'
