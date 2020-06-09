@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'sinatra-contrib', require: false
 
 gem 'activerecord'
+gem 'activesupport'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'sinatra-activerecord'
 
