@@ -1,10 +1,9 @@
 class AdsController < ApplicationController
-  get '/ads' do
-    'Ads List'
+  get '/' do
     ads = ::Ad.order(updated_at: :desc)
     serializer = AdSerializer.new(ads)
 
-    json serializer.serialized_json
+    json serializer, json_encoder: :serialized_json
   end
 
   post '/ads' do
@@ -14,8 +13,9 @@ class AdsController < ApplicationController
     )
 
     if result.success?
+      status 201
       serializer = AdSerializer.new(result.ad)
-      json serializer.serialized_json, status: :created
+      json serializer, json_encoder: :serialized_json
     else
       error_response(result.ad, :unprocessable_entity)
     end
@@ -24,7 +24,6 @@ class AdsController < ApplicationController
   private
 
   def ad_params
-    params[:ad].slice(:title, :description, :city)
+    params[:ad]&.slice(:title, :description, :city)
   end
 end
-
