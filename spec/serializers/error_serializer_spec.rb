@@ -47,21 +47,7 @@ RSpec.describe ErrorSerializer do
   end
 
   describe 'from_model' do
-    let(:model) do
-      Class.new do
-        include ActiveModel::Model
-
-        attr_accessor :blue, :green
-
-        validates :blue, :green, presence: true
-        validates :green, inclusion: { in: [1] }
-
-        def self.name
-          'Model'
-        end
-      end.new
-    end
-
+    let(:model) { build(:ad, user_id: nil) }
     before do
       model.validate
     end
@@ -70,21 +56,9 @@ RSpec.describe ErrorSerializer do
       expect(subject.from_model(model)).to eq(
         errors: [
           {
-            detail: %(can't be blank),
+            detail: %(не может быть пустым),
             source: {
-              pointer: '/data/attributes/blue'
-            }
-          },
-          {
-            detail: %(can't be blank),
-            source: {
-              pointer: '/data/attributes/green'
-            }
-          },
-          {
-            detail: %(is not included in the list),
-            source: {
-              pointer: '/data/attributes/green'
+              pointer: '/data/attributes/user_id'
             }
           }
         ]

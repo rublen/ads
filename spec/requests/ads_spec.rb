@@ -41,7 +41,7 @@ RSpec.describe 'Ads API', type: :request do
         expect(response.status).to eq 422
         expect(JSON.parse(response.body)['errors']).to include(
           {
-            'detail' => "can't be blank",
+            'detail' => "Укажите город",
             'source' => {
               'pointer' => '/data/attributes/city'
             }
